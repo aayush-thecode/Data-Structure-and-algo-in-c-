@@ -125,25 +125,44 @@
 // }
 
 // 5. For a positive N, WAP that prints the first N fibonnaci numbers.( Assume N >=2) 
+// #include <iostream>
+// using namespace std;
+
+// int main() {
+//     int N;
+//     cout << "Enter the number of Fibonacci terms: ";
+//     cin >> N;
+
+//     int first = 0, second = 1;
+    
+//     cout << "Fibonacci Series: " << first << " " << second << " ";
+    
+//     for (int i = 3; i <= N; i++) {
+//         int next = first + second;
+//         cout << next << " ";
+//         first = second;
+//         second = next;
+//     }
+
+//     cout << endl;
+//     return 0;
+// }
+
+
 #include <iostream>
 using namespace std;
 
 int main() {
-    int N;
-    cout << "Enter the number of Fibonacci terms: ";
-    cin >> N;
+int sum = 0;
+int n = 200;
 
-    int first = 0, second = 1;
-    
-    cout << "Fibonacci Series: " << first << " " << second << " ";
-    
-    for (int i = 3; i <= N; i++) {
-        int next = first + second;
-        cout << next << " ";
-        first = second;
-        second = next;
-    }
+for(int idx = n; idx!=0; idx = idx/10){
+    int digit = idx % 10;
+    sum = sum + digit*digit*digit;
+} if(n==sum)
+cout <<"yes";
+else 
+cout <<"no";
 
-    cout << endl;
     return 0;
 }

@@ -30,3 +30,34 @@ int main() {
     selectionSort(arr, n);
     return 0;
 }
+
+#include <bits/stdc++.h>
+using namespace std;
+void selectionSort( int arr[] , int n)
+{
+      for( int i=0;i<n-1;i++)
+      {
+         int mx=i;
+         for( int j=i+1;j<n;j++)
+         {
+         	if( arr[mx]< arr[j])
+         	{
+         		mx=j;
+         	}
+         }
+         int temp= arr[i];
+         arr[i]= arr[mx];
+         arr[mx]=temp;
+      }
+}
+int main()
+{
+	int arr[]= {1,3,5,7,9};
+	int n=5;
+	selectionSort( arr,n );
+	for( int i=0;i<n;i++)
+	{
+		 cout<<arr[i]<<" ";
+	}
+	return 0;
+}

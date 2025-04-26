@@ -15,12 +15,12 @@ int tilingProbem(int n) {
     //horizontal
     int ans2 = tilingProbem(n - 2); // 2xn -2
 
-    return ans1 + ans2;
+    return ans1 + ans2; // return tilingProblem(n-1) + tiling(n-2)...
 }
 
 int main() {
     int n = 3;
-    cout << tilingProbem(n) << endl;
+    cout << tilingProbem(5) << endl; //3*5
 
     return 0;
 }

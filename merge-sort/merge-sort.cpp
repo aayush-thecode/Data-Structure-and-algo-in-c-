@@ -4,14 +4,14 @@
 #include <vector>
 using namespace std;
 
-void merge(int arr[], int si,int mid, int ei){
+void merge(int arr[], int si, int mid, int ei){
     vector<int> temp;
     int i = si;
     int j = mid + 1;
 
-    while ((i <=mid && j <= ei)) {
+    while (i <=mid && j <= ei) {
         if(arr[i] <= arr[j]) {
-            temp.push_back(arr[i+1]);
+            temp.push_back(arr[i++]);
         } else {
             temp.push_back(arr[j++]);
         }
@@ -21,23 +21,23 @@ void merge(int arr[], int si,int mid, int ei){
     }
     
     while(j <= ei) {
-        temp.push_back(arr[j+1]);
+        temp.push_back(arr[j++]);
     }
 
     //vector --> original array
-    for(int idx = si, x = 0; idx <= ei; idx ++) {
+    for(int idx = si, x = 0; idx <= ei; idx ++) { //org arr
         arr[idx] = temp[x++];
     }
 };
 
-void mergeSort(int arr[], int si, int ei) {
+void mergeSort(int arr[], int si, int ei) {//O(nlogn)
 
 //base case
-    if(si <= ei) {
+    if(si >= ei) {
         return;
     }
 
-    int mid = (si + ei) /2; // si + (ei - si)/2
+    int mid =  si + (ei - si)/2; //(si + ei) /2;
 
     //left half
     mergeSort(arr, si, mid);
@@ -45,7 +45,7 @@ void mergeSort(int arr[], int si, int ei) {
     //right half
     mergeSort(arr, mid + 1, ei);
 
-    merge(arr, si, mid, ei);
+    merge(arr, si, mid, ei); // conquer
 };
 
 

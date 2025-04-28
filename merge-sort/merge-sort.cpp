@@ -64,3 +64,74 @@ int main() {
     printArr(arr, n);
     return 0;
 }
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+void merge(vector<int> &arr, int startIndex, int endIndex, int mid) {
+    // left array is already sorted
+    // right array is also sorted
+    // left array is from [startIndex .... mid]
+    // right array is from [mid+1 ..... end]
+    int i = startIndex, j = mid+1;
+    
+    vector<int> sortedArr;
+ 
+    // till the time there are elements in both the arrays
+    while(i<=mid && j<=endIndex) {
+        // there are 2 elements to compare
+        if(arr[i]<arr[j]) {
+            sortedArr.push_back(arr[i]);
+            i++;
+        } else {
+            sortedArr.push_back(arr[j]);
+            j++;
+        }
+    }
+ 
+    // when we come out of this while loop ??? - what does it mean ???
+    // if my left array has some elements
+    while(i<=mid) {
+        sortedArr.push_back(arr[i]);
+        i++;
+    }
+    // if my right array has some elements
+    while(j<=endIndex) {
+        sortedArr.push_back(arr[j]);
+        j++;
+    }
+ 
+    // sortedArr is a new array
+    for(int k=startIndex;k<=endIndex;k++) {
+        // copy the values of sortedArr into arr so that arr becomes sorted
+        // TODO
+    }
+}
+ 
+void mergeSort(vector<int> &arr, int startIndex, int endIndex) {
+    // Base Case
+    if(startIndex==endIndex) {
+        // Our array is already sorted since there is only 1 element
+        return;
+    }
+    int mid = (startIndex+endIndex)/2;
+    
+    // Sort the left array
+    mergeSort(arr, startIndex, mid);
+ 
+    // Sort the right array
+    mergeSort(arr, mid+1, endIndex);
+ 
+    // Left and Right both arrays are sorted
+    // Merge these 2 sorted arrays into 1
+    merge(arr, startIndex, endIndex, mid);
+}
+ 
+int main() {
+    vector<int> arr = {5, 4, 1, 3, 2};
+    mergeSort(arr, 0, arr.size() - 1);
+ 
+    
+    return 0;
+}

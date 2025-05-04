@@ -131,7 +131,6 @@ void mergeSort(vector<int> &arr, int startIndex, int endIndex) {
 int main() {
     vector<int> arr = {5, 4, 1, 3, 2};
     mergeSort(arr, 0, arr.size() - 1);
- 
-    
+
     return 0;
 }

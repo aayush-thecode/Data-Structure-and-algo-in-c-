@@ -1,6 +1,8 @@
 {
     "files.associations": {
         ".env*": "dotenv",
-        "random": "cpp"
+        "deque": "cpp",
+        "list": "cpp",
+        "new": "cpp"
     }
 }

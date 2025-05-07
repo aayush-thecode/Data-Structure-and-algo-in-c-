@@ -161,6 +161,29 @@ public:
         }
         head = prev;
     }
+
+    int getSize(){
+        int sz = 0;
+        Node* temp = head;
+
+        while(temp != NULL){
+            temp = temp->next;
+            sz++;
+        }
+        return sz;
+    }
+
+    void removeNth(int n){
+        int size = getSize();
+        Node* prev = head;
+
+        for(int i = 1; i<(size-n); i++){
+            prev = prev->next;
+        }
+        Node* toDel = prev->next;
+        cout << "going to delete : " << toDel->data << endl;
+        prev->next = prev->next->next;
+    }
 };
 
 int main(){
@@ -190,5 +213,10 @@ int main(){
     ll.reverse();
     ll.printList();
 
+    ll.removeNth(2);
+    ll.printList();
+
+    ll.removeNth(3);
+    ll.printList();
     return 0;
 }

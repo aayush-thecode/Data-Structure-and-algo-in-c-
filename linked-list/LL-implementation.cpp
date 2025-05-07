@@ -146,6 +146,21 @@ public:
     int searchRec(int key){
         return helper(head, key);
     }
+
+    void reverse(){
+        Node* curr = head;
+        Node* prev = NULL;
+
+        while(curr !=NULL){
+            Node* next = curr->next;
+            curr->next = prev;
+
+            //updations for next itr
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
 };
 
 int main(){
@@ -171,6 +186,9 @@ int main(){
 
     cout<< ll.searchItr(2) << endl;
     cout << ll.searchRec(3) << endl;
+
+    ll.reverse();
+    ll.printList();
 
     return 0;
 }

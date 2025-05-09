@@ -33,6 +33,17 @@ public:
         }
     }
 
+     void push_back(int val) {
+        Node* newNode = new Node(val);
+
+        if (head == NULL) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
     void pop_front(){
         if(head == NULL){
             return;
@@ -101,6 +112,7 @@ void removeCycle(Node* head){
         fast->next = NULL; //remove cycle
     } else {
         Node* prev = fast;
+
         while(slow !=fast) {
             slow = slow->next;
             prev = fast;
@@ -109,6 +121,86 @@ void removeCycle(Node* head){
         prev->next = NULL; // remove cycle
     }
 }
+
+
+    Node* splitAtMid(Node* head) {
+        Node* slow = head;
+        Node* fast = head;
+        Node* prev = NULL;
+
+        while(fast != NULL && fast->next != NULL) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        if(prev != NULL) {
+            prev->next = NULL; //split at middle
+        }  
+        
+        return slow; //slow = rightHead
+    }
+
+    Node* merge(Node* left, Node* right){
+        List ans;
+        Node* i = left;
+        Node* j = right;
+
+        while(i != NULL && j != NULL) {
+            if(i->data <= j-> data){
+                ans.push_back(i->data);
+                i = i->next;
+            } else {
+                ans.push_back(j->data);
+                j = j->next;
+            }
+        }
+        while(i != NULL) {
+            ans.push_back(i->data);
+            j = j->next;
+        }
+        return ans.head;
+    }
+
+   Node* mergeSort(Node* head) {
+    //base case
+    if(head == NULL || head->next == NULL) {
+        return head;
+    }
+
+    Node* rightHead = splitAtMid(head);
+
+    Node* left = mergeSort(head); //left head
+    Node* right = mergeSort(rightHead); //right head
+
+    return merge(left, right); // head of shorted LL
+}
+
+Node* reverse(Node* head) {
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* next = NULL;
+
+    while(curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+
+        prev = curr;
+        curr = next;
+    }
+    return prev; // prev is head of revered LL
+}
+
+    void zigZag(Node* head) {
+
+        Node* rightHead = splitAtMid(head);
+         Node* rightHeadRev = reverse(rightHead);
+
+         //alternate merge : 1st head = head; end head = rightHeadRev
+}
+
+
+   
 
 int main(){
     List ll;
@@ -125,5 +217,7 @@ int main(){
     removeCycle(ll.head);
     printList(ll.head);
 
+    ll.head = mergeSort(ll.head);
+    printList(ll.head);
     return 0;
 }

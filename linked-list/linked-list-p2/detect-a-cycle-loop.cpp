@@ -191,16 +191,35 @@ Node* reverse(Node* head) {
     return prev; // prev is head of revered LL
 }
 
-    void zigZag(Node* head) {
-
+Node* zigZagLL(Node* head) {
         Node* rightHead = splitAtMid(head);
-         Node* rightHeadRev = reverse(rightHead);
+        Node* rightHeadRev = reverse(rightHead);
 
-         //alternate merge : 1st head = head; end head = rightHeadRev
+        //alternate merge : 1st head = head; end head = rightHeadRev
+        Node* left = head;
+        Node* right = rightHeadRev;
+        Node* tail = right;
+
+         while(left != NULL && right != NULL){
+            Node* nextLeft = left->next;
+            Node* nextRight = right->next;
+
+            left->next = right;
+            right->next = nextLeft;
+
+            tail = right;
+
+            left = nextLeft;
+            right = nextRight;
+         }
+        
+        if(right != NULL) {
+            tail->next = right;
+        }
+        return head;
 }
 
 
-   
 
 int main(){
     List ll;
@@ -210,14 +229,17 @@ int main(){
     ll.push_front(2);
     ll.push_front(1);
     //1->2->3->4->1
-    ll.tail->next = ll.head;
+    // ll.tail->next = ll.head;
 
-    isCycle(ll.head);
+    // isCycle(ll.head);
 
-    removeCycle(ll.head);
-    printList(ll.head);
+    // removeCycle(ll.head);
+    // printList(ll.head);
 
-    ll.head = mergeSort(ll.head);
+    // ll.head = mergeSort(ll.head);
+    // printList(ll.head);
+
+    ll.head = zigZagLL(ll.head);
     printList(ll.head);
     return 0;
 }

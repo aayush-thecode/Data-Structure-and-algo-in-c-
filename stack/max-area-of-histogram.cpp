@@ -4,9 +4,17 @@
 #include <stack>
 using namespace std;
 
+void printArr(vector<int> vec) {
+    for(int i = 0; i<vec.size(); i++) {
+        cout << vec[i] << " ";
+    }
+    cout << endl;
+}
+
 int maxAreaHistogram(vector<int> height) {
-    vector <int> nsl;
-    vector <int> nsr;
+    int n = height.size();
+    vector <int> nsl(n);
+    vector <int> nsr(n);
     stack<int> s;
 
     //next smaller left
@@ -23,14 +31,15 @@ int maxAreaHistogram(vector<int> height) {
         } else {
             nsl[i] = s.top();
         }
-        s.push(curr);
+        s.push(i);
     }
+
+    printArr(nsl);
 
     while(!s.empty()) {
         s.pop();
     }
     //next smaller right
-    int n = height.size();
     s.push(n-1);
     nsr[n-1] = n;
     for(int i = n-1; i >= 0; i--) {
@@ -43,11 +52,23 @@ int maxAreaHistogram(vector<int> height) {
         } else {
             nsr[i] = s.top();
         }
+        s.push(i);
     }
+
+    int maxArea = 0;
+    for(int i = 0; i<n; i++) {
+        int ht = height[i];
+        int width = nsr[i] - nsl[i] - 1;
+        int area = ht * width;
+
+        maxArea = max(area, maxArea);
+    }
+    cout << "max area of histogram : "<< maxArea << endl;
 }
 
 int main() {
     vector<int> height = {2, 1, 5, 6, 2, 3};
+    maxAreaHistogram(height);
 
     return 0;
 }

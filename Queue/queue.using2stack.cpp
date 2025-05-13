@@ -2,7 +2,7 @@
 #include <stack>
 using namespace std;
 
-class Queue {
+class Queue { //FIFO
     stack<int> s1;
     stack<int> s2;
 public:

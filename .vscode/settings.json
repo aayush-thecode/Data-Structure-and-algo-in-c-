@@ -3,6 +3,9 @@
         ".env*": "dotenv",
         "deque": "cpp",
         "list": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "array": "cpp",
+        "forward_list": "cpp",
+        "vector": "cpp"
     }
 }

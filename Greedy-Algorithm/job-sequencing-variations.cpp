@@ -16,7 +16,7 @@ public:
     }
 };
 
-int maxChainLength(vector<pair<int, int>> pairs) {
+int maxProfit(vector<pair<int, int>> pairs) {
     int n = pairs.size();
     vector<Job> jobs;
 
@@ -44,13 +44,12 @@ int maxChainLength(vector<pair<int, int>> pairs) {
 
 int main() {
     int n = 5;
-    vector<pair<int, int>> pairs(n, make_pair(0, 0));
-    pairs[0] = make_pair(5, 24);
-    pairs[1] = make_pair(39, 60);
-    pairs[2] = make_pair(5, 28);
-    pairs[3] = make_pair(27, 40);
-    pairs[4] = make_pair(50, 90);
+    vector<pair<int, int>> jobs(n, make_pair(0, 0));
+    jobs[0] = make_pair(4, 20);
+    jobs[1] = make_pair(1, 10);
+    jobs[2] = make_pair(1, 40);
+    jobs[3] = make_pair(1, 30);
 
-    maxChainLength(pairs);
+    maxProfit(jobs);
     return 0;
 }

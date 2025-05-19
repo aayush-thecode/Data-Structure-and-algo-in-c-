@@ -51,6 +51,19 @@ void inorder(Node* root) {
     cout << root->data << " ";
     //right
     inorder(root->right);
+};
+
+void postorder(Node* root) {
+    if(root == NULL) {
+        return;
+    }
+
+    //left
+    postorder(root->left);
+    //right
+    postorder(root->right);
+
+    cout << root->data << " ";
 }
 
 int main() {
@@ -62,6 +75,9 @@ int main() {
     cout << endl;
 
     inorder(root);
+    cout << endl;
+
+    postorder(root);
     cout << endl;
     return 0;
 }

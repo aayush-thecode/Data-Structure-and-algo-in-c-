@@ -6,6 +6,7 @@
         "new": "cpp",
         "array": "cpp",
         "forward_list": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "iostream": "cpp"
     }
 }

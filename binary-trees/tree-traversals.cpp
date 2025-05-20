@@ -109,6 +109,17 @@ int height(Node* root) {
     return currHt;
 }
 
+int count(Node* root) {
+    if(root == NULL) {
+        return 0;
+    }
+
+    int leftCount = count(root->left);
+    int rightCount = count(root->right);
+
+    return leftCount + rightCount + 1;
+}
+
 int main() {
     vector<int> nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     int idx = 0;
@@ -127,5 +138,7 @@ int main() {
     cout << endl;
 
     cout << "height : " << height(root) << endl;
+
+    cout << "count : " << count(root) << endl;
     return 0;
 }

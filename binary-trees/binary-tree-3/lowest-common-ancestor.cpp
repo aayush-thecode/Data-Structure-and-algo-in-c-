@@ -66,14 +66,39 @@ int LCA(Node* root, int n1, int n2) {
     return lca;
 }
 
+Node* LCA2(Node* root, int n1, int n2) { //O(n) SC O(1)
+    if(root == NULL) {
+        return NULL;
+    }
+
+    if(root->data == n1 || root->data == n2) {
+        return root;
+    }
+
+    Node* leftLCA = LCA2(root->left, n1, n2);
+    Node* rightLCA = LCA2(root->right, n1, n2);
+
+    if(leftLCA != NULL && rightLCA != NULL) {
+        return root;
+    }
+
+    return leftLCA == NULL ? rightLCA : leftLCA;
+
+
+}
+
 int main() {
     vector<int> nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     int idx = 0;
     Node* root = buildTree(nodes, idx);
 
-    int n1 = 4, n2 = 5; // lca = 2
+    // int n1 = 4, n2 = 5; // lca = 2
 
-    cout << "Lowest common ancestor : " << LCA(root, n1, n2);
+    // cout << "Lowest common ancestor : " << LCA(root, n1, n2);
+
+    int n1 = 4, n2 = 3; // lca = 2
+
+    cout << "Lowest common ancestor 2 : " << LCA2(root, n1, n2)->data << endl;
 
     return 0;
 }

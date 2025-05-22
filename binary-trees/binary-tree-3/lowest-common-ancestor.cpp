@@ -83,8 +83,37 @@ Node* LCA2(Node* root, int n1, int n2) { //O(n) SC O(1)
     }
 
     return leftLCA == NULL ? rightLCA : leftLCA;
+};
 
+int dist(Node* root, int n) {
+    if(root == NULL) {
+        return -1;
+    }
 
+    if(root->data == n) {
+        return 0;
+    }
+
+    int leftDist = dist(root->left, n);
+    if(leftDist != -1) {
+        return leftDist + 1;
+    }
+
+    int rightDist = dist(root->right, n); 
+        if(rightDist != -1) {
+            return rightDist + 1;
+        }
+
+    dist(root->left, n);
+}
+
+int minDist(Node* root, int n1, int n2) {
+    Node* lca = LCA2(root, n1, n2);
+
+    int dist1 = dist(lca, n1);
+    int dist2 = dist(lca, n2);
+
+    return dist1 + dist2;
 }
 
 int main() {
@@ -96,9 +125,11 @@ int main() {
 
     // cout << "Lowest common ancestor : " << LCA(root, n1, n2);
 
-    int n1 = 4, n2 = 3; // lca = 2
+    int n1 = 4, n2 = 6; // lca = 2
 
     cout << "Lowest common ancestor 2 : " << LCA2(root, n1, n2)->data << endl;
+
+    cout << "min distance : " << minDist(root, n1, n2) << endl;
 
     return 0;
 }

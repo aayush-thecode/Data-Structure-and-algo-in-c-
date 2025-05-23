@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -27,6 +28,60 @@ Node* buildTree(vector<int>& nodes, int& idx) {
 
     return currNode;
 };
+
+void levelOrder(Node* root) { 
+    if(root == NULL) {
+        return;
+    }
+    queue<Node*> Q;
+    Q.push(root);
+    Q.push(NULL);
+
+    while(!Q.empty())  {
+        Node* curr = Q.front();
+        Q.pop();
+        if(curr == NULL) {
+            cout << endl;
+            if(Q.empty()) {
+                break;
+            }
+            Q.push(NULL);
+        } else {
+            cout << curr->data << " ";
+
+        if(curr->left != NULL) {
+            Q.push(curr->left);
+        }
+
+        if(curr->right != NULL) {
+            Q.push(curr->right);
+        }
+    }}
+}
+
+int height(Node* root) {
+    if(root == NULL) {
+        return 0;
+    }
+
+    int leftHt = height(root->left);
+    int rightHt = height(root->right);
+
+    int currHt = max(leftHt, rightHt) + 1;
+    return currHt;
+}
+
+int count(Node* root) {
+    if(root == NULL) {
+        return 0;
+    }
+
+    int leftCount = count(root->left);
+    int rightCount = count(root->right);
+
+    return leftCount + rightCount + 1;
+}
+
 
 bool rootToNodePath(Node* root, int n, vector<int> &path) { //O(n)
     if(root == NULL) {
@@ -139,6 +194,24 @@ int KthAncestor(Node* root, int node, int K)  {
     return validValue + 1;
 }
 
+int transform(Node* root) {
+    if(root == NULL) {
+        return 0;
+    }
+
+    int leftOld = transform(root->left);
+    int rightOld = transform(root->right);
+    int currOld = root->data;
+
+    root->data = leftOld + rightOld;
+    if(root->left != NULL) {
+        root->data += root->left->data ;
+    } if(root->right != NULL) {
+        root->data += root->right->data;
+    } 
+    return currOld;
+}
+
 int main() {
     vector<int> nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     int idx = 0;
@@ -157,5 +230,7 @@ int main() {
     int node = 5, K =2;
     KthAncestor(root, node, K);
 
+    transform(root);
+    levelOrder(root);
     return 0;
 }

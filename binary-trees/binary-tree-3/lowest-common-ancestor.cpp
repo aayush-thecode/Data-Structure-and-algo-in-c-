@@ -116,6 +116,29 @@ int minDist(Node* root, int n1, int n2) {
     return dist1 + dist2;
 }
 
+int KthAncestor(Node* root, int node, int K)  {
+    if(root == NULL) {
+        return -1;
+    }
+
+    if(root->data == node) {
+        return 0;
+    }
+
+    int leftDist = KthAncestor(root->left, node, K);
+    int rightDist = KthAncestor(root->right, node, K);
+
+    if(leftDist == -1 && rightDist == -1) {
+        return -1;
+    }
+
+    int validValue = leftDist == -1 ? rightDist : leftDist;
+    if(validValue +1 == K) {
+        cout << "Kth Ancestor : " << root->data << endl;
+    }
+    return validValue + 1;
+}
+
 int main() {
     vector<int> nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     int idx = 0;
@@ -129,7 +152,10 @@ int main() {
 
     cout << "Lowest common ancestor 2 : " << LCA2(root, n1, n2)->data << endl;
 
-    cout << "min distance : " << minDist(root, n1, n2) << endl;
+    cout << "min distance : " << minDist(root, n1, n2) << endl; 
+
+    int node = 5, K =2;
+    KthAncestor(root, node, K);
 
     return 0;
 }

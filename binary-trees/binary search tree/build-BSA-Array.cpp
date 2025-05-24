@@ -47,12 +47,30 @@ void inOrder(Node* root) {
     inOrder(root->right);
 }
 
+bool search(Node* root,int key) { //O(height); avg )(logn)
+    if(root == NULL) {
+        return false;
+    }
+
+    if(root->data == key) { // found
+        return true;
+    }
+
+    if(root->data > key) { //left subtree
+        return search(root->left, key);
+    } else {
+        return search(root->right, key); //right subtree
+    }
+}
+
 int main() {
     int arr[6] = {5, 1, 3, 4, 2, 7};
-    //int arr[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
+    // int arr[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
     
     Node* root = buildBST(arr, 6);
     inOrder(root);
     cout << endl;
+
+    cout << search(root, 15) << endl;
     return 0;
 }

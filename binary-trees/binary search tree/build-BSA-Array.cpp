@@ -100,6 +100,23 @@ Node* delNode(Node* root, int val) {
     }
     return root;
 }
+
+void printInRange(Node* root, int start, int end) {
+    if(root == NULL) {
+        return;
+    }
+
+    if(start <= root->data && root->data <= end) { //case 1
+        printInRange(root->left, start, end);
+        cout << root->data << " ";
+        printInRange(root->right, start, end);
+    } else if(root->data < start) { // case 2
+        printInRange(root->right, start, end);
+    } else{
+        printInRange(root->left, start, end);
+    }
+};
+
 int main() {
     // int arr[6] = {5, 1, 3, 4, 2, 7};
     int arr[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
@@ -109,7 +126,11 @@ int main() {
     inOrder(root);
     cout<< endl;
 
-    delNode(root, 10);
-    inOrder(root);
+    // delNode(root, 10);
+    // inOrder(root);
+    // cout << endl;
+
+    printInRange(root, 5, 12);
+    // inOrder(root);
     return 0;
 };

@@ -150,22 +150,45 @@ void rootToLeafPath(Node* root) {
     pathHelper(root, path);
 }
 
+bool validateHelper(Node* root, Node* min, Node* max) {
+    if(root == NULL) {
+        return true;
+    }
+
+    if(min != NULL && root->data < min->data){
+        return false;
+    }
+    if(min != NULL && root->data > max->data) {
+        return false;
+    }
+
+    return validateHelper(root->left, min, root) 
+    && validateHelper(root->right, root, max);
+}
+
+bool validateBST(Node* root) {
+    return validateHelper(root, NULL, NULL);
+}
+
 int main() {
     // int arr[6] = {5, 1, 3, 4, 2, 7};
     int arr[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
     
-    Node* root = buildBST(arr, 9);
+    // Node* root = buildBST(arr, 9);
     
-    inOrder(root);
-    cout<< endl;
+    // inOrder(root);
+    // cout<< endl;
 
     // delNode(root, 10);
     // inOrder(root);
     // cout << endl;
 
-    printInRange(root, 5, 12);
+    // printInRange(root, 5, 12);
     // inOrder(root);
 
-    rootToLeafPath(root);
+    // rootToLeafPath(root);
+
+    Node* root = buildBST(arr, 9);
+    cout << validateBST(root) << endl;
     return 0;
 };

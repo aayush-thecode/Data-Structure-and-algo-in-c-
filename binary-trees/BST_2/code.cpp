@@ -124,6 +124,35 @@ Info* largestBST(Node* root) {
     return new Info(false, currMin, currMax, currSz);
 }
 
+Node* mergeBSTs(Node* root1, Node* root2) {
+    
+    vector<int> nodes1;
+    vector<int> nodes2;
+    vector<int> merged;
+
+    getInorder(root1, nodes1);
+    getInorder(root2, nodes2);
+
+    int i = 0, j = 0;
+    while(i < nodes1.size() && j < nodes2.size()) {
+        if(nodes1[i] < nodes2[j]) {
+            merged.push_back(nodes1[i++]);
+        } else {
+            merged.push_back(nodes2[j++]);
+        }
+    }
+
+    while(i < nodes1.size()) {
+        merged.push_back(nodes1[i++]);
+    }
+
+    while(j < nodes2.size()) {
+        merged.push_back(nodes2[j++]);
+    }
+
+    return buildBSTfromSortedVector(merged, 0, merged.size()-1);
+}
+
 int main() {
     // int arr[7] = {3, 4, 5, 6, 7, 8, 9};
 
@@ -131,16 +160,16 @@ int main() {
     // preorder(root);
     // cout << endl;
 
-    Node* root =  new Node(50);
-    root->left = new Node(30);
-    root->left->left = new Node(5);
-    root->left->left->left = new Node(20);
+    // Node* root =  new Node(50);
+    // root->left = new Node(30);
+    // root->left->left = new Node(5);
+    // root->left->left->left = new Node(20);
 
-    root->right = new Node(60);
-    root->right->left = new Node(45);
-    root->right->right= new Node(70);
-    root->right->right->left = new Node(65);
-    root->right->right->right = new Node(80);
+    // root->right = new Node(60);
+    // root->right->left = new Node(45);
+    // root->right->right= new Node(70);
+    // root->right->right->left = new Node(65);
+    // root->right->right->right = new Node(80);
 
 
 
@@ -148,7 +177,19 @@ int main() {
     // preorder(root);
     // cout << endl;
 
-    largestBST(root);
-    cout << "max size : " << maxSize << endl;
-    return 0;
+    // largestBST(root);
+    // cout << "max size : " << maxSize << endl;
+    // return 0;
+
+    Node* root1 = new Node(2);
+    root1->left =  new Node(1);
+    root1->right = new Node(4);
+
+    Node* root2 = new Node(9);
+    root2->left = new Node(3);
+    root2->right = new Node(12);
+
+    Node* root = mergeBSTs(root1, root2);
+    preorder(root);
+    cout << endl;
 }
